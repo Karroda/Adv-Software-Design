@@ -5,7 +5,6 @@ import java.util.Date;
  * @author zheng_zz
  */
 public class Requester extends User {
-    // 什么可以通过工厂类来创建呢? 批量制造requestinfo、feedback的内容?
     private static volatile RequestInfo requestInfo;
     private static volatile Feedback feedback;
 
