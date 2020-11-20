@@ -75,7 +75,7 @@ public class RequestInfo {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "RequestInfoDao{" +
+        return "RequestInfo{" +
                 "id=" + id +
                 ", requesterId=" + requesterId +
                 ", responderId=" + java.util.Arrays.toString(responderId) +

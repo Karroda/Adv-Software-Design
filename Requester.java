@@ -5,8 +5,8 @@ import java.util.Date;
  * @author zheng_zz
  */
 public class Requester extends User {
-
-    private static volatile RequestInfo requestInfoDao;
+    // 什么可以通过工厂类来创建呢? 批量制造requestinfo、feedback的内容?
+    private static volatile RequestInfo requestInfo;
     private static volatile Feedback feedback;
 
     public Requester(Integer id, String name, String phone, String password){
@@ -22,14 +22,14 @@ public class Requester extends User {
      * @return
      */
     public static RequestInfo CreateNewRequestInfo(Integer requesterId, String content, String location, Double price){
-        if (requestInfoDao == null){
+        if (requestInfo == null){
             synchronized (RequestInfo.class){
-                if (requestInfoDao == null){
-                    requestInfoDao = new RequestInfo(requesterId,content,location,price);
+                if (requestInfo == null){
+                    requestInfo = new RequestInfo(requesterId,content,location,price);
                 }
             }
         }
-        return requestInfoDao;
+        return requestInfo;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Requester extends User {
      * @param content
      * @param time
      * @param abuseInfo
-     * @return
+     * @return feedback
      */
     public static Feedback createFeedback(Integer requestInfoId, String category, Double score, String content,
                                           Date time, String abuseInfo){
