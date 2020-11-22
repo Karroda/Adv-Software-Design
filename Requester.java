@@ -3,7 +3,7 @@ import java.util.Date;
 
 /**
  * @author zheng_zz
- */
+ */ 
 public class Requester extends User {
     private static volatile RequestInfo requestInfo;
     private static volatile Feedback feedback;
