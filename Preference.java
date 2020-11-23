@@ -17,6 +17,7 @@ public class Preference {
      * @param gender
      * @param age
      * @param workingAge
+     * @param otherSpecificPrefence
      */
     public Preference(Integer requesterID,Integer responderID,Integer gender,Integer age,Integer workingAge, String otherSpecificPrefence)
     {
@@ -26,6 +27,36 @@ public class Preference {
         this.age=age;
         this.workingAge=workingAge;
         this.otherSpecificPrefence=otherSpecificPrefence;
+    }
+    
+    public Integer getRequesterID()
+    {
+        return this.requesterID;
+    }
+
+    public Integer getResponderID()
+    {
+        return this.responderID;
+    }
+
+    public Integer getGender()
+    {
+        return this.gender;
+    }
+
+    public Integer getAge()
+    {
+        return this.age;
+    }
+
+    public Integer getWorkingAge()
+    {
+        return this.workingAge;
+    }
+
+    public String getOtherSpecificPrefence()
+    {
+        return this.otherSpecificPrefence;
     }
 
 }
