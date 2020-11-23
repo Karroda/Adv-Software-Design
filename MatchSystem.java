@@ -1,6 +1,6 @@
 import java.util.Date;
 /**
- * @author Jiecong YANG
+ * @author Jiecong YANG, zheng_zz
  */
 public class MatchSystem {
 
@@ -56,5 +56,106 @@ public class MatchSystem {
     public void getFeedbacks(Feedback [] feedbacks)
     {
         this.feedbacks=feedbacks;
+    }
+
+
+    /**
+     * Match feedback to corresponding Responder
+     * @param feedback
+     * @return
+     */
+    public static Integer [] feedbackMatchResponder(Feedback feedback){
+
+        Integer requestInfoId = feedback.getRequestInfoId();
+        RequestInfo requestInfo = RequestInfo.getRequestInfoById(requestInfoId);
+        Integer [] responderId = requestInfo.getResponderId();
+        return responderId;
+    }
+
+    /**
+     * Use preference to match suitable responders
+     * @param preference
+     * @return
+     */
+    public static Integer [] preferenceMatchResponder(Preference preference){
+        Integer [] responderId = {1};
+        return responderId;
+    }
+
+    /**
+     * Match requestInfo to Responder
+     * @param requestInfo
+     * @return
+     */
+    public static Integer [] requestInfoMatchResponder(RequestInfo requestInfo){
+        Integer requesterId = requestInfo.getRequesterId();
+        Requester requester = Requester.getRequesterById(requesterId);
+        Preference preference = requester.getPreference();
+        return preferenceMatchResponder(preference);
+    }
+
+    /**
+     * Match responderPayment to responder
+     * @return
+     */
+    public static Integer [] responderPaymentMatchResponder(RequesterPayment requesterPayment){
+        Integer requestInfoId = requesterPayment.getRequestInfoId();
+        RequestInfo requestInfo = RequestInfo.getRequestInfoById(requestInfoId);
+        Integer [] responder = requestInfo.getResponderId();
+        return responder;
+    }
+
+    /**
+     * Stimulate transferring requestInfo, responder payment, feedback
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        MatchSystem matchSystem = new MatchSystem();
+
+        // requestInfo
+        RequestInfo [] requestInfo = {Requester.createNewRequestInfo(1,1,"content",
+                "location",1.1)};
+        matchSystem.getRequestInfos(requestInfo);
+        for (RequestInfo reqInfo: requestInfo){
+            Integer [] responderId = requestInfoMatchResponder(reqInfo);
+            for (Integer id: responderId){
+                Responder responder = Responder.getResponderById(reqInfo.getId());
+                RequestInfo temp = responder.receiveNewRequestInfo(id);
+                responder.showRequestInfo(temp);
+            }
+
+        }
+        System.out.println("============================");
+        // feedback
+        // 1. matchSystem get feedbacks sent by requester
+        Feedback []feedbacks = {Requester.createFeedback(1,1,"cate",1.2,
+                "content",new Date(),"abuse")};
+        matchSystem.getFeedbacks(feedbacks);
+        // 2. send feedbacks to responders and responder gets feedback
+        for (Feedback feedback: feedbacks){
+            Integer [] responderId = feedbackMatchResponder(feedback);
+            for (Integer id: responderId){
+                Responder responder = Responder.getResponderById(id);
+                Feedback resFeedback = responder.getFeedBack(feedback.getRequestInfoId());
+                responder.showFeedback(resFeedback);
+            }
+        }
+
+        System.out.println("============================");
+        // responderPayment
+        RequesterPayment [] requesterPayments = {RequestInfo.createRequesterPayment(1,
+                                        1,new Date(),1.2,0.1)};
+        matchSystem.getRequestPayments(requesterPayments);
+        for (RequesterPayment requesterPayment: requesterPayments) {
+            Integer[] responderId = responderPaymentMatchResponder(requesterPayment);
+            for (Integer id : responderId) {
+                // responder得到payment
+                Responder responder = Responder.getResponderById(id);
+                ResponderPayment responderPayment =
+                        Responder.getResponderPayment(requesterPayment.getRequestInfoId(),id);
+                responder.showResponderPayment(responderPayment);
+            }
+        }
     }
 }

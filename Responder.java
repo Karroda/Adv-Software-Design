@@ -29,18 +29,55 @@ public class Responder extends User {
     }
 
     /**
+     * receiveNewRequestInfo
+     * @param requestInfoId
+     * @return
+     */
+    public RequestInfo receiveNewRequestInfo(Integer requestInfoId){
+        RequestInfo requestInfo = RequestInfo.getRequestInfoByIdWithoutResponders(requestInfoId);
+        Integer [] responderId = {1};
+        requestInfo.setResponderId(responderId);
+        return requestInfo;
+    }
+
+
+
+    /**
      * getFeedBack
      * The Feedback should be returned by searching DB and get a corresponding object
      * create a new instance of Feedback in this example to show the return type is Feedback
      * @param requestInfoId
      * @return
      */
-    public static Feedback getFeedBack(Integer requestInfoId){
-        System.out.println("select from db to find which feedback has the same requestInfoId");
-        return new Feedback(requestInfoId, "category", 4.0 , "content",
-                new Date(), "abuseInfo");
+    public Feedback getFeedBack(Integer requestInfoId){
+        RequestInfo requestInfo = RequestInfo.getRequestInfoByIdWithFeedbackId(requestInfoId);
+        Integer feedbackId = requestInfo.getFeedbackId();
+        Feedback feedback = Feedback.getFeedbackById(feedbackId);
+        return feedback;
     }
 
+    /**
+     * Show feedback after getFeedback
+     * @param feedback
+     */
+    public void showFeedback(Feedback feedback){
+        System.out.println(feedback);
+    }
+
+    /**
+     * Show requestInfo
+     * @param requestInfo
+     */
+    public void showRequestInfo(RequestInfo requestInfo){
+        System.out.println(requestInfo);
+    }
+
+    /**
+     * Show responderPayment
+     */
+    public void showResponderPayment(ResponderPayment responderPayment){
+        System.out.println(responderPayment);
+    }
 
     /**
      * getResponderPayment
@@ -53,6 +90,17 @@ public class Responder extends User {
     public static ResponderPayment getResponderPayment(Integer requestInfoId, Integer responderId){
         System.out.println("select from db to find which responder payment has the same requestInfoId and responderId");
         return new ResponderPayment(requestInfoId,responderId,new Date(),1.0,0.1);
+    }
+
+    /**
+     * Get responder by responderId
+     * @param responderId
+     */
+    public static Responder getResponderById(Integer responderId){
+
+        System.out.println("select from the db to find responder where id = "+responderId);
+        Responder responder = new Responder(1,"name","phone","password");
+        return responder;
     }
 
 
@@ -74,11 +122,9 @@ public class Responder extends User {
             System.out.println(temp);
         }
 
-        Feedback feedback = getFeedBack(1);
-        System.out.println(feedback);
-
         ResponderPayment responderPayment = getResponderPayment(1,2);
         System.out.println(responderPayment);
+
     }
 
 }

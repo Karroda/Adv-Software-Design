@@ -90,6 +90,12 @@ public class Feedback {
         System.out.println(abuseInfo);
     }
 
+    public static Feedback getFeedbackById(Integer id){
+        Feedback feedback = new Feedback(id,1,"cate", 1.1,
+                "content", new Date(), "abuse");
+        return feedback;
+    }
+
     @Override
     public String toString() {
         return "Feedback{" +
