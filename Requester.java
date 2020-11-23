@@ -1,15 +1,64 @@
 import java.util.Date;
 
-
 /**
  * @author zheng_zz
  */ 
 public class Requester extends User {
     private static volatile RequestInfo requestInfo;
     private static volatile Feedback feedback;
+    private Preference preference;
 
     public Requester(Integer id, String name, String phone, String password){
         super(id,name,phone,password);
+    }
+
+    public static RequestInfo getRequestInfo() {
+        return requestInfo;
+    }
+
+    public static void setRequestInfo(RequestInfo requestInfo) {
+        Requester.requestInfo = requestInfo;
+    }
+
+    public static Feedback getFeedback() {
+        return feedback;
+    }
+
+    public static void setFeedback(Feedback feedback) {
+        Requester.feedback = feedback;
+    }
+
+    public Preference getPreference() {
+        return this.preference;
+    }
+
+    public void setPreference(Preference preference) {
+        this.preference = preference;
+    }
+
+    /**
+     * Create preferences
+     * @param requesterID
+     * @param responderID
+     * @param gender
+     * @param age
+     * @param workingAge
+     * @return
+     */
+    public Preference createPreferences(Integer requesterID,Integer responderID,Integer gender,
+                                                Integer age,Integer workingAge){
+        return preference = new Preference(requesterID,responderID,gender,age,workingAge);
+    }
+
+    /**
+     * Get requester by id
+     * @param requesterId
+     * @return
+     */
+    public static Requester getRequesterById(Integer requesterId){
+        System.out.println("select from db to find requester where id = requesterId");
+        Requester requester = new Requester(1,"name","phone","password");
+        return requester;
     }
 
     /**
@@ -20,11 +69,11 @@ public class Requester extends User {
      * @param price
      * @return
      */
-    public static RequestInfo CreateNewRequestInfo(Integer requesterId, String content, String location, Double price){
+    public static RequestInfo createNewRequestInfo(Integer id, Integer requesterId, String content, String location, Double price){
         if (requestInfo == null){
             synchronized (RequestInfo.class){
                 if (requestInfo == null){
-                    requestInfo = new RequestInfo(requesterId,content,location,price);
+                    requestInfo = new RequestInfo(id,requesterId,content,location,price);
                 }
             }
         }
@@ -33,11 +82,13 @@ public class Requester extends User {
 
     /**
      * Requester pay for payment
-     * @param requesterPayment
+     * @param requestInfoId
      */
-    public static void payRequesterPayment(RequesterPayment requesterPayment){
+    public static void payRequesterPayment(Integer requestInfoId,Integer requesterId,Double price,Double perUseFee){
+        RequesterPayment requesterPayment = RequestInfo.createRequesterPayment(requestInfoId,requesterId,
+                                        new Date(),price,perUseFee);
+        System.out.println("pay for requesterPayment");
         System.out.println(requesterPayment);
-        System.out.println("Requester pay the payment");
     }
 
     /**
@@ -50,12 +101,12 @@ public class Requester extends User {
      * @param abuseInfo
      * @return feedback
      */
-    public static Feedback createFeedback(Integer requestInfoId, String category, Double score, String content,
+    public static Feedback createFeedback(Integer id, Integer requestInfoId, String category, Double score, String content,
                                           Date time, String abuseInfo){
         if (feedback == null){
             synchronized (Feedback.class){
                 if (feedback == null){
-                    feedback = new Feedback(requestInfoId, category, score, content, time, abuseInfo);
+                    feedback = new Feedback(id, requestInfoId, category, score, content, time, abuseInfo);
                 }
             }
         }
@@ -73,10 +124,10 @@ public class Requester extends User {
     }
 
     public static void main(String[] args) {
-        RequestInfo temp = CreateNewRequestInfo(1,"content","location",1.2);
+        RequestInfo temp = createNewRequestInfo(1,1,"content","location",1.2);
         System.out.println(temp);
 
-        Feedback feedback = createFeedback(1,"cate",1.2,"content",new Date(),"abuse");
+        Feedback feedback = createFeedback(1,1,"cate",1.2,"content",new Date(),"abuse");
         System.out.println(feedback);
 
     }
