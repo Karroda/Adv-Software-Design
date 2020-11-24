@@ -150,7 +150,6 @@ public class MatchSystem {
         for (RequesterPayment requesterPayment: requesterPayments) {
             Integer[] responderId = responderPaymentMatchResponder(requesterPayment);
             for (Integer id : responderId) {
-                // responder得到payment
                 Responder responder = Responder.getResponderById(id);
                 ResponderPayment responderPayment =
                         Responder.getResponderPayment(requesterPayment.getRequestInfoId(),id);
