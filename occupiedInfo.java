@@ -5,7 +5,7 @@ import java.util.Date;
 public class occupiedInfo {
     private Integer responderID;
     private Boolean isOccupied;
-    private Date OccupiedTime;
+    private Date occupiedTime;
 
     public Integer getResponderID()
     {
@@ -19,6 +19,6 @@ public class occupiedInfo {
 
     public Date getOccupiedTime()
     {
-        return this.OccupiedTime;
+        return this.occupiedTime;
     }
 }
