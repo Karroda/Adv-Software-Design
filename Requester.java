@@ -46,8 +46,8 @@ public class Requester extends User {
      * @return
      */
     public Preference createPreferences(Integer requesterID,Integer responderID,Integer gender,
-                                                Integer age,Integer workingAge){
-        return preference = new Preference(requesterID,responderID,gender,age,workingAge);
+                                                Integer age,Integer workingAge,String otherSpecificPreference){
+        return preference = new Preference(requesterID,responderID,gender,age,workingAge,otherSpecificPreference);
     }
 
     /**
