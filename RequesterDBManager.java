@@ -8,7 +8,7 @@ public final class RequesterDBManager{
 
     private RequesterDBManager(){}
 
-    public static Singleton getInstance(){
+    public static RequesterDBManager getInstance(){
         if(instance == null){
             synchronized(RequesterDBManager.class){
                 if(instance == null){
@@ -19,7 +19,11 @@ public final class RequesterDBManager{
         return instance;
     }
 
-    public boolean insert(){
+    public boolean insert(RequestInfo record){
+        if(instance == null)
+            return false;
+
+        // insert the record to db
         return true;
     }
 
@@ -28,6 +32,12 @@ public final class RequesterDBManager{
      * could overload with other parameters
      */
     public RequestInfo search(Integer id){
-        // return RequestInfo with ID=id
+        // search in db with ID=id, 4 lines below are placeholders
+        Integer requesterId = 10;
+        String content = "content";
+        String location = "location";
+        Double price = 10;
+        
+        return new RequestInfo(id, requesterId, content, location, price);
     } 
 }
