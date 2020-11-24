@@ -1,6 +1,7 @@
 import java.util.Date;
 /**
  * @author Jiecong YANG, zheng_zz
+ * mediator pattern, reducing the coupling between requester and responder
  */
 public class MatchSystem {
 
