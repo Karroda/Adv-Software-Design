@@ -22,4 +22,12 @@ public final class RequesterDBManager{
     public boolean insert(){
         return true;
     }
+
+    /*
+     * search the RequestInfo according to id
+     * could overload with other parameters
+     */
+    public RequestInfo search(Integer id){
+        // return RequestInfo with ID=id
+    } 
 }
