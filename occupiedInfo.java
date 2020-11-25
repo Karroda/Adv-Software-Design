@@ -2,7 +2,7 @@ import java.util.Date;
 /**
  * @author Jiecong YANG
  */
-public class occupiedInfo {
+public class OccupiedInfo {
     private Integer responderID;
     private Boolean isOccupied;
     private Date occupiedTime;

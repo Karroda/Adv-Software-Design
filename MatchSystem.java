@@ -8,6 +8,35 @@ public class MatchSystem {
     private RequesterPayment [] requesterPayment;
     private RequestInfo [] requestInfo;
     private Feedback [] feedbacks;
+    private Preference [] preferences;
+    private OccupiedInfo [] occupiedInfos;
+    /**
+     * search reqeuster's preference
+     * @param requesterID
+     * @return
+     */
+    public Preference searchPreference(Integer requesterID)
+    {
+        for(int i=0;i<preferences.length;i++)
+            if(this.preferences[i].getRequesterID()==requesterID)
+                return this.preferences[i];
+        return null;
+    }
+
+    /**
+     * search responder's occupied info
+     * @param responderID
+     * @return
+     */
+    public OccupiedInfo searchOccupiedInfo(Integer responderID)
+    {
+        for(int i=0;i<occupiedInfos.length;i++)
+            if(this.occupiedInfos[i].getResponderID()==responderID)
+                return this.occupiedInfos[i];
+        return null;
+    }
+
+
     /**
      * match system get request payments and save it
      * @param requesterPayment
