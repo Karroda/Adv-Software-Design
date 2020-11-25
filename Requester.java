@@ -8,7 +8,6 @@ public class Requester extends User {
     private static volatile Feedback feedback;
     private Preference preference;
 
-    private RequesterDBManager dbManager = RequesterDBManager.getInstance();
 
     public Requester(Integer id, String name, String phone, String password){
         super(id,name,phone,password);
@@ -83,6 +82,24 @@ public class Requester extends User {
     }
 
     /**
+     * Get responders information
+     * @param requestInfoId
+     * @return
+     */
+    public static Responder [] getResponderInfo(Integer requestInfoId){
+        RequestInfo requestInfo = RequestInfo.getRequestInfoById(requestInfoId);
+        Integer [] responderId = MatchSystem.requestInfoMatchResponder(requestInfo);
+        int length = responderId.length;
+        Responder [] responders = new Responder [length];
+
+        for (int i =0 ;i<length;i++){
+            Responder temp = Responder.getResponderById(responderId[i]);
+            responders[i] = temp;
+        }
+        return responders;
+    }
+
+    /**
      * Requester pay for payment
      * @param requestInfoId
      */
@@ -90,6 +107,14 @@ public class Requester extends User {
         RequesterPayment requesterPayment = RequestInfo.createRequesterPayment(requestInfoId,requesterId,
                                         new Date(),price,perUseFee);
         System.out.println("pay for requesterPayment");
+        System.out.println(requesterPayment);
+    }
+
+    /**
+     * Show requesterPayment result
+     * @param requesterPayment
+     */
+    public static void showRequesterPaymentResult(RequesterPayment requesterPayment){
         System.out.println(requesterPayment);
     }
 
@@ -115,6 +140,14 @@ public class Requester extends User {
         return feedback;
     }
 
+    /**
+     * Show feedback Result
+     * @param feedback
+     */
+    public static void showFeedbackResult(Feedback feedback){
+        System.out.println(feedback);
+    }
+
     @Override
     public String toString() {
         return "Requester{" +
@@ -131,6 +164,11 @@ public class Requester extends User {
 
         Feedback feedback = createFeedback(1,1,"cate",1.2,"content",new Date(),"abuse");
         System.out.println(feedback);
+
+        Responder [] responders = getResponderInfo(1);
+        for (Responder responder : responders){
+            System.out.println(responder);
+        }
 
     }
 

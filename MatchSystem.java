@@ -136,7 +136,7 @@ public class MatchSystem {
     }
 
     /**
-     * Stimulate transferring requestInfo, responder payment, feedback
+     * Simulate transferring requestInfo, responderPayment, feedback
      * @param args
      */
     public static void main(String[] args) {
