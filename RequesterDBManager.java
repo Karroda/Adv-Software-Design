@@ -1,7 +1,7 @@
 
-/*
+/**
  * DB Manager as a singleton class for Requester
- * Shaolun
+ * @author Shaolun
  */
 public final class RequesterDBManager{
     private static volatile RequesterDBManager instance;
@@ -20,14 +20,14 @@ public final class RequesterDBManager{
     }
 
     public boolean insert(RequestInfo record){
-        if(instance == null)
+        if (instance == null){
             return false;
-
+        }
         // insert the record to db
         return true;
     }
 
-    /*
+    /**
      * search the RequestInfo according to id
      * could overload with other parameters
      */
@@ -36,7 +36,7 @@ public final class RequesterDBManager{
         Integer requesterId = 10;
         String content = "content";
         String location = "location";
-        Double price = 10;
+        Double price = 10.0;
         
         return new RequestInfo(id, requesterId, content, location, price);
     } 
