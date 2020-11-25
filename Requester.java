@@ -8,7 +8,6 @@ public class Requester extends User {
     private static volatile Feedback feedback;
     private Preference preference;
 
-    private RequesterDBManager dbManager = RequesterDBManager.getInstance();
 
     public Requester(Integer id, String name, String phone, String password){
         super(id,name,phone,password);

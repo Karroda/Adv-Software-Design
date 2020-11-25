@@ -7,6 +7,7 @@ public class RequestInfo {
 
     private static volatile RequesterPayment requesterPayment;
 
+    private static RequesterDBManager dbManager = RequesterDBManager.getInstance();
 
     private Integer id;
     private Integer requesterId;
@@ -26,6 +27,8 @@ public class RequestInfo {
         this.content = content;
         this.location = location;
         this.price = price;
+
+        dbManager.insert(this);
     }
 
     public RequestInfo(Integer[] responderId, String content,String location, Double price) {
@@ -33,6 +36,8 @@ public class RequestInfo {
         this.content = content;
         this.location = location;
         this.price = price;
+
+        dbManager.insert(this);
     }
 
     public RequestInfo(Integer id, Integer requesterId, Integer []responderId, String content, String location, Double price) {
@@ -41,6 +46,8 @@ public class RequestInfo {
         this.content = content;
         this.location = location;
         this.price = price;
+
+        dbManager.insert(this);
     }
 
     public RequestInfo(Integer id, Integer requesterId, Integer []responderId, String content,
@@ -50,6 +57,8 @@ public class RequestInfo {
         this.content = content;
         this.location = location;
         this.price = price;
+
+        dbManager.insert(this);
     }
 
     public RequestInfo(Integer id, Integer requesterId, Integer[] responderId, String content, Integer workingIntensity,
@@ -67,6 +76,8 @@ public class RequestInfo {
         this.requiredNumberOfPeople = requiredNumberOfPeople;
         this.requiredTool = requiredTool;
         this.requiredSkill = requiredSkill;
+
+        dbManager.insert(this);
     }
 
     /**
