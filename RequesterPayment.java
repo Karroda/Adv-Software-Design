@@ -3,31 +3,37 @@ import java.util.Date;
 
 /**
  * @author zheng_zz
+ * 
+ * Modified by Shaolun
  */
-public class RequesterPayment {
+public class RequesterPayment extends Payment{
 
+    /*
     private Integer id;
     private Integer requestInfoId;
     private Integer requesterId;
     private Date time;
     private Double price;
     private Double perUseFee;
+    */
 
     public RequesterPayment(Integer requestInfoId, Integer requesterId, Date time, Double price, Double perUseFee) {
-        this.requestInfoId = requestInfoId;
+        /*this.requestInfoId = requestInfoId;
         this.requesterId = requesterId;
         this.time = time;
         this.price = price;
-        this.perUseFee = perUseFee;
+        this.perUseFee = perUseFee;*/
+        super(requestInfoId, requesterId, time, price, perUseFee);
     }
 
     public RequesterPayment(Integer id, Integer requestInfoId, Integer requesterId, Date time, Double price, Double perUseFee) {
-        this.id = id;
+        /*this.id = id;
         this.requestInfoId = requestInfoId;
         this.requesterId = requesterId;
         this.time = time;
         this.price = price;
-        this.perUseFee = perUseFee;
+        this.perUseFee = perUseFee;*/
+        super(id, requestInfoId, requesterId, time, price, perUseFee);
     }
 
     public Integer getId() {
@@ -38,6 +44,7 @@ public class RequesterPayment {
         this.id = id;
     }
 
+    /*
     public Integer getRequestInfoId() {
         return requestInfoId;
     }
@@ -77,13 +84,14 @@ public class RequesterPayment {
     public void setPerUseFee(Double perUseFee) {
         this.perUseFee = perUseFee;
     }
+    */
 
     @Override
     public String toString() {
         return "RequesterPayment{" +
                 "id=" + id +
                 ", requestInfoId=" + requestInfoId +
-                ", requesterId=" + requesterId +
+                ", requesterId=" + userId +
                 ", time=" + time +
                 ", price=" + price +
                 ", perUseFee=" + perUseFee +
